@@ -75,6 +75,22 @@ async def scheduled_task():
         await asyncio.sleep(time_until_target)
         await send_video()
 
+async def update_status():
+    while True:
+        now = datetime.now(TIMEZONE)
+        target_time_today = now.replace(hour=TARGET_TIME[0], minute=TARGET_TIME[1], second=0, microsecond=0)
+        if now > target_time_today:
+            target_time_today += timedelta(days=1)
+
+        time_until_target = target_time_today - now
+        hours, remainder = divmod(time_until_target.seconds, 3600)
+        minutes, seconds = divmod(remainder, 60)
+
+        status = f'Time until Real Raccoon Hours: {hours}h {minutes}m {seconds}s'
+        await client.change_presence(activity=discord.Game(name=status))
+        await asyncio.sleep(60)  # Update status every minute
+
+
 async def main():
     await client.start(BOT_TOKEN)
 
