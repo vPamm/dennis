@@ -63,8 +63,13 @@ async def scheduled_task():
     while True:
         now = datetime.now(TIMEZONE)
         target_time_today = now.replace(hour=TARGET_TIME[0], minute=TARGET_TIME[1], second=0, microsecond=0)
+        print(f'Current time: {now}')
+        print(f'Target time today: {target_time_today}')
+
         if now > target_time_today:
             target_time_today += timedelta(days=1)
+            print(f'Target time adjusted to next day: {target_time_today}')
+
         time_until_target = (target_time_today - now).total_seconds()
         print(f'Sleeping for {time_until_target} seconds until the next video send time.')
         await asyncio.sleep(time_until_target)
