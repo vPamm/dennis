@@ -32,7 +32,8 @@ async def on_ready():
     print(f'Logged in as {client.user} (ID: {client.user.id})')
     print(f'Working directory: {os.getcwd()}')
     print(f'Video file path: {VIDEO_FILE_PATH}')
-    await scheduled_task()
+    client.loop.create_task(scheduled_task())
+    client.loop.create_task(update_status())
 
 @client.event
 async def on_message(message):
