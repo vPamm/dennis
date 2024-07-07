@@ -13,10 +13,10 @@ TARGET_GUILD_ID = 994733084341702736 # Example guild ID
 TARGET_CHANNEL_ID = 1145944745311473785 # Example channel ID
 
 # Replace with the path to your video file (ensure the bot has access)
-VIDEO_FILE_PATH = 'rrh.mp4'
+VIDEO_FILE_PATH = '/root/dennis/rrh.MP4'
 
 # Schedule the video to be sent at this time EVERY DAY (adjust hours and minutes)
-TARGET_TIME = (13, 29)  # Hour and minute as a tuple (1:17 PM)
+TARGET_TIME = (13, 53)  # Hour and minute as a tuple (1:17 PM)
 
 # Time zone for scheduling (Eastern Standard Time)
 TIMEZONE = pytz.timezone('US/Eastern')
@@ -30,6 +30,8 @@ client = discord.Client(intents=intents)
 @client.event
 async def on_ready():
     print(f'Logged in as {client.user} (ID: {client.user.id})')
+    print(f'Working directory: {os.getcwd()}')
+    print(f'Video file path: {VIDEO_FILE_PATH}')
     await scheduled_task()
 
 @client.event
@@ -49,8 +51,11 @@ async def send_video():
         return
 
     try:
-        await channel.send(file=discord.File(VIDEO_FILE_PATH))
-        print(f'Video sent to channel {channel.name} at {datetime.now(TIMEZONE)}')
+        if os.path.exists(VIDEO_FILE_PATH):
+            await channel.send(file=discord.File(VIDEO_FILE_PATH))
+            print(f'Video sent to channel {channel.name} at {datetime.now(TIMEZONE)}')
+        else:
+            print(f'File not found: {VIDEO_FILE_PATH}')
     except Exception as e:
         print(f'Failed to send video: {e}')
 
