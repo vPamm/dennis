@@ -2,6 +2,7 @@ import discord
 from datetime import datetime, timedelta
 import asyncio
 import pytz
+import os
 
 # Replace with your bot token (keep this secret)
 BOT_TOKEN = 'token'
