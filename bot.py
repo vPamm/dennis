@@ -8,16 +8,16 @@ import os
 BOT_TOKEN = 'token'
 
 # Replace with the ID of the target guild (use developer mode to copy ID)
-TARGET_GUILD_ID = 994733084341702736 # Example guild ID
+TARGET_GUILD_ID = 994733084341702736 # test server
 
 # Replace with the ID of the target channel within the guild (use developer mode to copy ID)
-TARGET_CHANNEL_ID = 1145944745311473785 # Example channel ID
+TARGET_CHANNEL_ID = 1145944745311473785 # test channel
 
 # Replace with the path to your video file (ensure the bot has access)
 VIDEO_FILE_PATH = '/root/dennis/rrh.MP4'
 
 # Schedule the video to be sent at this time EVERY DAY (adjust hours and minutes)
-TARGET_TIME = (13, 53)  # Hour and minute as a tuple (1:17 PM)
+TARGET_TIME = (3, 00)  # Hour and minute as a tuple (3:00 AM)
 
 # Time zone for scheduling (Eastern Standard Time)
 TIMEZONE = pytz.timezone('US/Eastern')
@@ -36,11 +36,13 @@ async def on_ready():
     client.loop.create_task(scheduled_task())
     client.loop.create_task(update_status())
 
+
 @client.event
 async def on_message(message):
     if message.author == client.user:
         return  # Ignore bot's own messages
 
+# send message to server, else fails and print to console
 async def send_video():
     guild = client.get_guild(TARGET_GUILD_ID)
     if not guild:
@@ -61,6 +63,7 @@ async def send_video():
     except Exception as e:
         print(f'Failed to send video: {e}')
 
+# logging in console
 async def scheduled_task():
     while True:
         now = datetime.now(TIMEZONE)
@@ -77,6 +80,7 @@ async def scheduled_task():
         await asyncio.sleep(time_until_target)
         await send_video()
 
+#timer until message send, displayed in status
 async def update_status():
     while True:
         now = datetime.now(TIMEZONE)
