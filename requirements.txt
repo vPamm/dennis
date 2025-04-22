@@ -1,0 +1,7 @@
+discord.py
+apscheduler
+pytz
+yt_dlp
+PyNaCl
+spotipy
+wavelink
