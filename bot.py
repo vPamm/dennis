@@ -32,7 +32,7 @@ TARGET_GUILDS = {
     GUILD_ID: CHANNEL_ID,  # Server 2
     # Add more guilds and channels as needed
 }
-VIDEO_FILE_PATH = 'rrh.mp4'
+VIDEO_FILE_PATH = 'rrh.mp4' # use the full path if on linux
 TARGET_TIME = (3, 00)  # Hour and minute as a tuple (13:29 = 1:29 PM)
 TIMEZONE = pytz.timezone('US/Eastern')
 
